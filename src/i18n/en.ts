@@ -177,15 +177,36 @@ const en = {
   recognition: {
     label: "Honors",
     items: [
-      { title: "Masason Foundation", note: "Gen 2" },
-      { title: "MITOU Junior", note: "Youngest-ever Super Creator · 2017" },
+      {
+        title: "Masason Foundation",
+        note: "Gen 2",
+        url: "https://masason-foundation.org/en/",
+      },
+      {
+        title: "MITOU Junior",
+        note: "Youngest-ever Super Creator · 2017",
+        url: "https://jr.mitou.org/english/",
+      },
       {
         title: "Teen App Awards",
         note: "Champion · Minister of Internal Affairs Award · 2021",
+        url: "https://applikoshien.jp/",
       },
-      { title: "High-School Pitch Koshien", note: "Excellence Award" },
-      { title: "Nikkei Social Business Contest", note: "Grand Prize" },
-      { title: "Tadashi Yanai Foundation", note: "Scholarship" },
+      {
+        title: "High-School Pitch Koshien",
+        note: "Excellence Award",
+        url: "https://presen.or.jp/presen_koshien/presen_koshien05/",
+      },
+      {
+        title: "Nikkei Social Business Contest",
+        note: "Grand Prize",
+        url: "https://pitch.nikkei.com/archive/socialbusinesscontest/",
+      },
+      {
+        title: "Tadashi Yanai Foundation",
+        note: "Scholarship",
+        url: "https://www.yanaitadashi-foundation.or.jp/",
+      },
     ],
   },
   education: {

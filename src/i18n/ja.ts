@@ -180,12 +180,36 @@ const ja: typeof en = {
   recognition: {
     label: "Honors",
     items: [
-      { title: "孫正義育英財団", note: "2期" },
-      { title: "未踏ジュニア", note: "最年少スーパークリエーター · 2017" },
-      { title: "アプリ甲子園", note: "優勝 · 総務大臣賞 · 2021" },
-      { title: "高校生プレゼン甲子園", note: "優秀賞" },
-      { title: "日経ソーシャルビジネスコンテスト", note: "大賞" },
-      { title: "柳井正財団", note: "奨学生" },
+      {
+        title: "孫正義育英財団",
+        note: "2期",
+        url: "https://masason-foundation.org/",
+      },
+      {
+        title: "未踏ジュニア",
+        note: "最年少スーパークリエーター · 2017",
+        url: "https://jr.mitou.org/",
+      },
+      {
+        title: "アプリ甲子園",
+        note: "優勝 · 総務大臣賞 · 2021",
+        url: "https://applikoshien.jp/",
+      },
+      {
+        title: "高校生プレゼン甲子園",
+        note: "優秀賞",
+        url: "https://presen.or.jp/presen_koshien/presen_koshien05/",
+      },
+      {
+        title: "日経ソーシャルビジネスコンテスト",
+        note: "大賞",
+        url: "https://pitch.nikkei.com/archive/socialbusinesscontest/",
+      },
+      {
+        title: "柳井正財団",
+        note: "奨学生",
+        url: "https://www.yanaitadashi-foundation.or.jp/",
+      },
     ],
   },
   education: {

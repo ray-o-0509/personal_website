@@ -127,12 +127,21 @@ export default function Home({
                 <li
                   key={h.title}
                   style={{ animationDelay: `${0.85 + i * 0.06}s` }}
-                  className="stagger flex items-baseline justify-between gap-4 border-b border-dashed border-[var(--line)] pb-2"
+                  className="stagger border-b border-dashed border-[var(--line)] pb-2 transition-colors duration-300 hover:border-[var(--accent-deep)]"
                 >
-                  <span>{h.title}</span>
-                  <span className="text-[var(--muted)] font-mono text-xs shrink-0">
-                    {stripYear(h.note)}
-                  </span>
+                  <a
+                    href={h.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-baseline justify-between gap-4"
+                  >
+                    <span className="transition-colors duration-300 group-hover:text-[var(--accent-deep)]">
+                      {h.title}
+                    </span>
+                    <span className="text-[var(--muted)] font-mono text-xs shrink-0 transition-colors duration-300 group-hover:text-[var(--accent-deep)]">
+                      {stripYear(h.note)}
+                    </span>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -301,14 +310,29 @@ export default function Home({
             <li
               key={h.title}
               style={{ animationDelay: `${0.15 + i * 0.06}s` }}
-              className="stagger flex flex-col border-l-2 border-[var(--accent-deep)] pl-5 py-1"
+              className="stagger"
             >
-              <span className="font-serif text-xl sm:text-2xl tracking-[-0.005em]">
-                {h.title}
-              </span>
-              <span className="text-xs text-[var(--muted)] mt-1 font-mono tracking-wider">
-                {h.note}
-              </span>
+              <a
+                href={h.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex flex-col border-l-2 border-[var(--accent-deep)] pl-5 py-1 transition-[border-color,padding] duration-500 ease-[cubic-bezier(0.7,0,0.18,1)] hover:border-[var(--ink)] hover:pl-6"
+              >
+                <span className="flex items-baseline gap-2">
+                  <span className="font-serif text-xl sm:text-2xl tracking-[-0.005em] transition-colors duration-300 group-hover:text-[var(--accent-deep)]">
+                    {h.title}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-sm text-[var(--accent-deep)] -translate-x-1 opacity-0 transition-[opacity,transform] duration-400 ease-[cubic-bezier(0.7,0,0.18,1)] group-hover:translate-x-0 group-hover:opacity-100"
+                  >
+                    ↗
+                  </span>
+                </span>
+                <span className="text-xs text-[var(--muted)] mt-1 font-mono tracking-wider">
+                  {h.note}
+                </span>
+              </a>
             </li>
           ))}
         </ul>
