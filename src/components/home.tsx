@@ -79,7 +79,7 @@ export default function Home({
           <SocialIcons />
         </div>
 
-        <div className="mt-10 sm:mt-12 lg:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+        <div className="mt-3 sm:mt-4 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
           <div className="enter enter-d4 lg:col-span-7">
             <div className="flex flex-wrap items-center gap-3">
               <a
