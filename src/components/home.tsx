@@ -75,6 +75,10 @@ export default function Home({
           </span>
         </h1>
 
+        <div className="enter enter-d4 mt-6 sm:mt-8">
+          <SocialIcons />
+        </div>
+
         <div className="mt-12 sm:mt-14 lg:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
           <div className="enter enter-d4 lg:col-span-7">
             <div className="flex flex-wrap items-center gap-3">
@@ -461,6 +465,26 @@ const SOCIAL = [
     Icon: FacebookIcon,
   },
 ] as const;
+
+function SocialIcons() {
+  return (
+    <ul className="flex items-center gap-5">
+      {SOCIAL.map(({ label, url, Icon }) => (
+        <li key={label}>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className="inline-flex h-9 w-9 items-center justify-center text-[var(--muted)] transition-colors hover:text-[var(--accent-deep)]"
+          >
+            <Icon className="h-5 w-5" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function SocialLinks() {
   return (
