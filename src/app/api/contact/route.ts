@@ -1,20 +1,8 @@
 import { NextResponse } from "next/server";
-
-/**
- * Contact form handler.
- *
- * Forwards validated submissions to FormSubmit (https://formsubmit.co), which
- * delivers the email without requiring an API key. On the very FIRST submission
- * after deploy, FormSubmit will send a one-time activation link to the
- * recipient — clicking it enables future deliveries.
- *
- * To swap in another provider (Resend, Postmark, etc.), set CONTACT_FORWARD_URL
- * in your environment and adjust the request body shape below.
- */
+import { Resend } from "resend";
 
 const RECIPIENT = "rayrayo0509.developer@gmail.com";
-const FORWARD_URL =
-  process.env.CONTACT_FORWARD_URL ?? `https://formsubmit.co/ajax/${RECIPIENT}`;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const isString = (v: unknown): v is string => typeof v === "string";
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -52,25 +40,17 @@ export async function POST(req: Request) {
   }
 
   try {
-    const res = await fetch(FORWARD_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name: name.trim(),
-        email: email.trim(),
-        message: message.trim(),
-        _subject: `New message from ${name.trim()} via rayotsuka.com`,
-        _replyto: email.trim(),
-      }),
+    const { error } = await resend.emails.send({
+      from: "Contact Form <onboarding@resend.dev>",
+      to: RECIPIENT,
+      replyTo: email.trim(),
+      subject: `New message from ${name.trim()} via rayotsuka.com`,
+      text: `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
     });
 
-    if (!res.ok) {
-      const text = await res.text().catch(() => "");
-      console.error("[contact] forward failed", res.status, text);
-      return NextResponse.json({ error: "forward_failed" }, { status: 502 });
+    if (error) {
+      console.error("[contact] resend error", error);
+      return NextResponse.json({ error: "send_failed" }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
