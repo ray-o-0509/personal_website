@@ -126,7 +126,7 @@ const en = {
           "Designed and shipped the memory module for an AI voice companion for elderly users. Patent pending. Cut perceived response time with a 'thinking' audio + visual indicator.",
       },
       {
-        period: "Dec 2024 — now",
+        period: "Dec 2024 — Jun 2026",
         role: "Project Lead",
         org: "Digital Agency of Japan",
         location: "Online",
