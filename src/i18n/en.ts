@@ -25,6 +25,11 @@ const en = {
         right: "2026 →",
       },
       {
+        left: "Intern",
+        org: "SoftBank",
+        right: "2026 →",
+      },
+      {
         left: "President's Office",
         org: "Kasumigaseki Capital",
         right: "2025 →",
@@ -109,6 +114,13 @@ const en = {
         org: "Marubeni",
         location: "Online · Internship",
         note: "Designing and building a SaaS platform and in-house operations tools.",
+      },
+      {
+        period: "2026 — now",
+        role: "Intern",
+        org: "SoftBank",
+        location: "Tokyo",
+        note: "Supporting operations and accompanying a Senior Managing Executive Officer.",
       },
       {
         period: "2025 — now",
