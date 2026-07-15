@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const RECIPIENT = "rayrayo0509.developer@gmail.com";
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const isString = (v: unknown): v is string => typeof v === "string";
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -38,6 +37,15 @@ export async function POST(req: Request) {
   ) {
     return NextResponse.json({ error: "validation_failed" }, { status: 400 });
   }
+
+  // Instantiate lazily at request time — evaluating this at module load would
+  // crash the build (page-data collection) in any environment without the key.
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("[contact] RESEND_API_KEY is not set");
+    return NextResponse.json({ error: "not_configured" }, { status: 500 });
+  }
+  const resend = new Resend(apiKey);
 
   try {
     const { error } = await resend.emails.send({
