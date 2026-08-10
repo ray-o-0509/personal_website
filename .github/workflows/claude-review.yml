@@ -13,7 +13,10 @@ jobs:
   review:
     # PR 新規作成時（draft は ready になった時点）のみ実行。
     # synchronize を含めないので、既に開いている PR への push ではレビューしない。
-    if: github.event.pull_request.draft == false
+    # public リポジトリのため、書き込み権限を持つユーザーの PR のみ対象にする
+    if: |
+      github.event.pull_request.draft == false &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
