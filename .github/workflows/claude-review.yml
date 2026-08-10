@@ -1,0 +1,56 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    # PR 新規作成時（draft は ready になった時点）のみ実行。
+    # synchronize を含めないので、既に開いている PR への push ではレビューしない。
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # track_progress: トラッキングコメントを作成し、レビュー結果を投稿する
+          track_progress: true
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            このプルリクエストの差分をレビューしてください。
+
+            観点:
+            - バグ・ロジックの誤り・考慮漏れのエッジケース
+            - セキュリティ上の問題
+            - 可読性・保守性・設計上の懸念
+            加えてこのリポジトリ固有の観点 (Next.js 16 App Router / React 19 / Tailwind v4 の個人サイト):
+            - アクセシビリティ: セマンティックな要素、代替テキスト、キーボード操作とフォーカス可視性、色コントラスト
+            - パフォーマンス: next/image と next/font の使い方、不要な use client によるクライアント化、
+              バンドルと画像サイズ
+            - SEO/OGP: layout.tsx や generateMetadata の title/description/canonical/OG 画像、
+              ロケール別 alternates の整合
+            - 多言語: src/i18n の en.ts と ja.ts でキーと文言が揃っているか、文字列のハードコードがないか
+            - src/app/api/contact のフォーム経路: 入力バリデーション、スパム対策、
+              シークレットやメールアドレスの取り扱い
+
+            具体的な指摘は該当行へのインラインコメントで、最後に全体のサマリーを
+            PR コメントとして投稿してください。フィードバックはすべて日本語で書いてください。
+            重大な問題がなければ、その旨を簡潔にコメントしてください。
+          claude_args: |
+            --model claude-opus-4-8
+            --max-turns 30
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
