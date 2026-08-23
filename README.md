@@ -16,6 +16,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Environment variables
+
+Create a `.env.local` file with the following (the app runs without them, but the
+contact form returns `not_configured` and analytics is disabled):
+
+| Variable | Purpose |
+|---|---|
+| `RESEND_API_KEY` | Sends contact-form messages via [Resend](https://resend.com). |
+| `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` | PostHog project token (client and server). |
+| `NEXT_PUBLIC_POSTHOG_HOST` | PostHog ingestion host — defaults to `https://eu.i.posthog.com`. |
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

@@ -27,11 +27,6 @@ const ja: typeof en = {
         right: "2026 →",
       },
       {
-        left: "インターン",
-        org: "ソフトバンク",
-        right: "2026 →",
-      },
-      {
         left: "社長室",
         org: "霞ヶ関キャピタル",
         right: "2025 →",
@@ -119,7 +114,7 @@ const ja: typeof en = {
         note: " SaaS プラットフォームおよび社内業務開発化ツールのデザイン・開発を担当。",
       },
       {
-        period: "2026 — 現在",
+        period: "2026 年 7 月",
         role: "インターン",
         org: "ソフトバンク",
         location: "東京",

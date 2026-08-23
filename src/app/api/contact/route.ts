@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { captureServerEvent } from "@/lib/posthog-server";
 
 const RECIPIENT = "rayrayo0509.developer@gmail.com";
 
@@ -60,6 +61,15 @@ export async function POST(req: Request) {
       console.error("[contact] resend error", error);
       return NextResponse.json({ error: "send_failed" }, { status: 502 });
     }
+
+    await captureServerEvent({
+      distinctId: email.trim(),
+      event: "contact_message_sent",
+      properties: {
+        name: name.trim(),
+        message_length: message.trim().length,
+      },
+    });
 
     return NextResponse.json({ ok: true });
   } catch (err) {
