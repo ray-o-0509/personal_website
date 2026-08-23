@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { locales, type Locale, localeLabels } from "@/i18n/config";
 
 export function LocaleSwitcher({ current }: { current: Locale }) {
@@ -32,6 +33,7 @@ export function LocaleSwitcher({ current }: { current: Locale }) {
               href={swap(l)}
               className="text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
               hrefLang={l}
+              onClick={() => posthog.capture("locale_switched", { from: current, to: l })}
             >
               {localeLabels[l]}
             </Link>

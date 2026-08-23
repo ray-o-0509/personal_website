@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import posthog from "posthog-js";
 import { LocaleSwitcher } from "./locale-switcher";
 import { ContactForm } from "./contact-form";
 import type { Dictionary } from "@/i18n";
@@ -84,6 +85,7 @@ export default function Home({
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
+                onClick={() => posthog.capture("cta_clicked", { cta: "view_projects" })}
                 className="group inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-5 py-2.5 text-sm text-[var(--bg)] transition-colors hover:bg-[var(--accent-deep)]"
               >
                 {dict.hero.ctaPrimary}
@@ -96,6 +98,7 @@ export default function Home({
               </a>
               <a
                 href="#contact"
+                onClick={() => posthog.capture("cta_clicked", { cta: "contact" })}
                 className="inline-flex items-center gap-2 rounded-full border border-[var(--ink)]/20 px-5 py-2.5 text-sm transition-colors hover:border-[var(--ink)] hover:bg-[var(--surface)]"
               >
                 {dict.hero.ctaSecondary}
@@ -133,6 +136,7 @@ export default function Home({
                     href={h.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("recognition_link_clicked", { title: h.title, location: "hero" })}
                     className="group flex items-baseline justify-between gap-4"
                   >
                     <span className="transition-colors duration-300 group-hover:text-[var(--accent-deep)]">
@@ -244,6 +248,7 @@ export default function Home({
                     href={p.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("project_link_clicked", { title: p.title, year: p.year })}
                     className="mt-7 inline-flex items-center gap-2 border-b border-[var(--ink)]/40 pb-0.5 text-sm hover:border-[var(--ink)] transition-colors"
                   >
                     {p.linkLabel}
@@ -316,6 +321,7 @@ export default function Home({
                 href={h.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => posthog.capture("recognition_link_clicked", { title: h.title, location: "recognition_section" })}
                 className="group relative flex flex-col border-l-2 border-[var(--accent-deep)] pl-5 py-1 transition-[border-color,padding] duration-500 ease-[cubic-bezier(0.7,0,0.18,1)] hover:border-[var(--ink)] hover:pl-6"
               >
                 <span className="flex items-baseline gap-2">
@@ -500,6 +506,7 @@ function SocialIcons() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
+            onClick={() => posthog.capture("social_link_clicked", { platform: label, location: "hero" })}
             className="inline-flex h-9 w-9 items-center justify-center text-[var(--muted)] transition-colors hover:text-[var(--accent-deep)]"
           >
             <Icon className="h-5 w-5" />
@@ -520,6 +527,7 @@ function SocialLinks() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
+          onClick={() => posthog.capture("social_link_clicked", { platform: label, location: "contact_footer" })}
           className="group inline-flex items-center gap-2.5 text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
         >
           <Icon className="h-4 w-4 transition-colors group-hover:text-[var(--accent-deep)]" />
@@ -859,6 +867,7 @@ function MediaList({
               href={m.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => posthog.capture("media_item_clicked", { outlet: m.outlet, title: m.title })}
               className="grid grid-cols-12 gap-3 lg:gap-8 py-5 sm:py-6 group transition-colors hover:bg-[var(--surface)] -mx-3 sm:-mx-5 px-3 sm:px-5 rounded-sm"
             >
               <span className="col-span-12 sm:col-span-3 text-[11px] tracking-[0.16em] text-[var(--muted)] font-mono pt-1 self-start">
@@ -881,7 +890,11 @@ function MediaList({
         <div className="mt-8 flex justify-center">
           <button
             type="button"
-            onClick={() => setExpanded((v) => !v)}
+            onClick={() => {
+              const next = !expanded;
+              setExpanded(next);
+              posthog.capture("media_list_expanded", { expanded: next });
+            }}
             aria-expanded={expanded}
             className="group inline-flex items-center gap-2 rounded-full border border-[var(--ink)]/20 px-5 py-2.5 text-sm transition-colors hover:border-[var(--ink)] hover:bg-[var(--surface)]"
           >

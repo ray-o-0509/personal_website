@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import posthog from "posthog-js";
 import type { Dictionary } from "@/i18n";
 
 type FormDict = Dictionary["contact"]["form"];
@@ -23,6 +24,10 @@ export function ContactForm({ dict }: { dict: FormDict }) {
       _hp: String(data.get("_hp") || ""),
     };
 
+    posthog.capture("contact_form_submitted", {
+      message_length: payload.message.length,
+    });
+
     setStatus("sending");
     try {
       const res = await fetch("/api/contact", {
@@ -33,8 +38,10 @@ export function ContactForm({ dict }: { dict: FormDict }) {
       if (!res.ok) throw new Error("submit failed");
       setStatus("success");
       formRef.current?.reset();
+      posthog.capture("contact_form_succeeded");
     } catch {
       setStatus("error");
+      posthog.capture("contact_form_failed");
     }
   }
 
