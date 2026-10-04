@@ -48,15 +48,6 @@ const en = {
     p1_link_href: "https://aibou.app",
     p1_post:
       ", an AI English-conversation app that integrated GPT-3 before its public release — over 1,800 downloads, modest revenue, and a lot of feedback collected by handing posters out around Shibuya.",
-    p2_pre: "At university I led the design and build of a long-horizon ",
-    p2_em1: "memory function",
-    p2_mid:
-      " for an AI voice companion for elderly users. A graph-theoretic water-flow model decides not just ",
-    p2_em2: "what",
-    p2_mid2: " to remember, but ",
-    p2_em3: "how strongly",
-    p2_post:
-      " — modeling gradual forgetting and the integration of episodic into semantic memory. In production today; patent pending.",
     p3:
       "There are plenty of engineers with stronger fundamentals and plenty of people who understand graph theory better than I do. Fewer people, I think, take that knowledge all the way through to something a real person can use and feel value from. That last mile — designing the experience, fitting it into reality — is where I want to keep working.",
   },
@@ -88,14 +79,6 @@ const en = {
         ],
         link: "https://aibou.app",
         linkLabel: "aibou.app",
-      },
-      {
-        title: "AI Memory",
-        subtitle: "Graph-theoretic memory for voice AI",
-        year: "2025",
-        description:
-          "Built during an internship — a memory architecture for an AI voice companion for older adults. A graph-theoretic 'water-flow' model decides not just what to recall, but how strongly — modeling gradual forgetting and the integration of episodic memory into semantic memory.",
-        stats: ["Patent pending"],
       },
     ],
   },
@@ -130,7 +113,7 @@ const en = {
         org: "Reazon Holdings",
         location: "Tokyo · Internship",
         note:
-          "Designed and shipped the memory module for an AI voice companion for elderly users. Patent pending. Cut perceived response time with a 'thinking' audio + visual indicator.",
+          "Cut perceived response time with a 'thinking' audio + visual indicator.",
       },
       {
         period: "Dec 2024 — Jun 2026",

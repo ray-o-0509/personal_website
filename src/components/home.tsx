@@ -176,15 +176,6 @@ export default function Home({
               </a>
               {dict.about.p1_post}
             </p>
-            <p>
-              {dict.about.p2_pre}
-              <em className="italic">{dict.about.p2_em1}</em>
-              {dict.about.p2_mid}
-              <em className="italic">{dict.about.p2_em2}</em>
-              {dict.about.p2_mid2}
-              <em className="italic">{dict.about.p2_em3}</em>
-              {dict.about.p2_post}
-            </p>
             <p className="text-[var(--muted)]">{dict.about.p3}</p>
           </div>
         </div>
